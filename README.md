@@ -8,7 +8,7 @@ You can find an demo at: [http://polymer.100dayproject.org/](http://polymer.100d
 
 # Installation/Configuration
 
-To install [http://bower.io/](Bower) through [https://www.npmjs.com/](NPM) you need to execute the following commands:
+To install [Bower](http://bower.io/) through [NPM](https://www.npmjs.com/) you need to execute the following commands:
 
 ```
 git clone https://github.com/100dayproject/polymer-web-example.git
