@@ -1,0 +1,147 @@
+<link rel="import" href="../bower_components/paper-styles/color.html">
+
+<dom-module id="card-project">
+    <template>
+        <style>
+            :host {
+                display: block;
+                cursor: pointer;
+                color: #607D8B;
+            }
+
+            paper-card:hover {
+                background: #F5F5F5;
+            }
+
+            paper-fab.red {
+                background: #d32f2f;
+                color: #fff;
+                --iron-icon-height: 10px;
+                --iron-icon-width: 10px;
+            }
+
+            paper-fab.yellow {
+                background: #FBC02D;
+                color: #fff;
+            }
+
+            paper-fab.green {
+                background: #388E3C;
+                color: #fff;
+            }
+
+            .card-header {
+                @apply(--paper-font-headline);
+            }
+
+            .card-light {
+                color: var(--paper-grey-600);
+            }
+
+            .card-location {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+
+            .card-reviews {
+                color: var(--google-blue-500);
+            }
+
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: var(--paper-amber-500);
+            }
+
+            iron-icon.star:last-of-type {
+                color: var(--paper-grey-500);
+            }
+
+            paper-fab::shadow {
+                @apply(--shadow-none);
+            }
+
+            paper-button iron-icon {
+                --iron-icon-width: 18px;
+            }
+
+            .fab {
+                padding: 10px;
+                display: inline-flex;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .more_desc {
+                padding: 1em 0.5em;
+                display: inline;
+            }
+
+            #description {
+                display: none;
+            }
+        </style>
+
+        <div class="col-md-3">
+            <paper-card image="../images/categories/nodejs.png">
+                <div class="card-content">
+                    <div class="card-header">Life Parser
+                        <div class="card-location card-light">
+                            <iron-icon icon="communication:location-on"></iron-icon>
+                            <span>98 days</span>
+                        </div>
+                    </div>
+                    <div class="cafe-rating">
+                        <iron-icon class="star" icon="star"></iron-icon>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                    </div>
+                    <p style="display: inline">WebSphere</p>
+                    <div class="more_desc">
+                        <iron-icon on-tap="_toggle" icon="icons:arrow-upward"
+                                   style="float: right;cursor: pointer"></iron-icon>
+                    </div>
+
+                </div>
+                <div id="description" class="card-actions">
+                    <p class="card-light">It product buit-in javascript platform, support for develop coding NodeJS.</p>
+                    <p>Version</p>
+                    <div class="center">
+                        <div class="fab">
+                            <paper-fab class="red" mini label="1.0" title="1.0"></paper-fab>
+                        </div>
+                        <div class="fab">
+                            <paper-fab class="yellow" mini label="2.0" title="2.0"></paper-fab>
+                        </div>
+                        <div class="fab">
+                            <paper-fab class="green" mini label="3.0" title="3.0"></paper-fab>
+                        </div>
+                    </div>
+                    <paper-button class="card-reviews">
+                        <iron-icon icon="icons:star"></iron-icon>
+                        REVIEWS
+                    </paper-button>
+                </div>
+            </paper-card>
+        </div>
+
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'card-project',
+            _toggle: function() {
+                if (this.$.description.style.display == 'none' || !this.$.description.style.display) {
+                    this.$.description.style.display = 'block';
+                } else {
+                    this.$.description.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</dom-module>

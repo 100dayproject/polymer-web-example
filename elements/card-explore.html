@@ -1,0 +1,347 @@
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+
+<dom-module id="card-explore">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            paper-toolbar {
+                --paper-toolbar-background: #2196F3;
+                --paper-toolbar-color: #fff;
+            }
+
+            paper-tabs paper-tab.iron-selected {
+                border-bottom: solid #fff;
+            }
+
+            .custom {
+                height: inherit;
+            }
+
+            .commit, .articles {
+                padding-top: 10px;
+            }
+
+            .article {
+                background: #fff;
+                /*padding-top: 10px;*/
+                /*min-height: 150px;*/
+            }
+
+            .landing-card {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                font-family: 'Roboto', serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.8;
+            }
+
+            .landing-card a {
+                color: #388E3C;
+            }
+
+            .landing-card .commit-view:first-child {
+                margin-top: 5px;
+            }
+
+            .row-li {
+                padding: 20px 40px;
+                /*border: solid 1px #CFD8DC;*/
+                /*box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);*/
+                -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+                -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+                margin-bottom: 10px;
+
+            }
+
+            .process {
+                background: linear-gradient(to right, #FFA000 0, #FFA000 9px, #fff 10px, #fff 100%) no-repeat;
+            }
+
+            .passed {
+                background: linear-gradient(to right, #388E3C 0, #388E3C 9px, #fff 10px, #fff 100%) no-repeat;
+            }
+
+            .failed {
+                background: linear-gradient(to right, #d32f2f 0, #d32f2f 9px, #fff 10px, #fff 100%) no-repeat;
+            }
+
+            .author iron-icon {
+                color: #388E3C;
+            }
+
+            .date iron-icon,
+            .author iron-icon,
+            .diff iron-icon,
+            .desc iron-icon {
+                width: 18px;
+            }
+
+            .date iron-icon {
+                color: #455A64;
+            }
+
+            .author {
+                color: #388E3C;
+            }
+
+            .landing-card .author,
+            .landing-card .desc,
+            .landing-card .diff {
+                padding-bottom: 5px;
+            }
+
+            .landing-card .diff {
+                padding-top: 10px;
+            }
+
+            .multi-line {
+                display: flex;
+            }
+
+            .multi-line .line-two {
+                padding-left: 80px;
+            }
+
+            paper-toolbar #realTime {
+                margin: 0;
+                text-align: center;
+                font-size: 12px;
+                padding-top: 10px;
+            }
+
+            paper-toolbar #explore {
+                margin: 0;
+                text-align: center;
+            }
+
+            #tabs {
+                background: #37A0F4;
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            }
+
+            .article {
+                margin-top: 10px;
+            }
+
+            .article img {
+                width: 120px;
+            }
+
+            .article .img {
+                display: inline-block;
+            }
+
+            .article-list {
+                display: inline-flex;
+                position: absolute;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            .article-list li:before {
+                margin-left: -15px;
+                margin-right: 6px;
+                margin-top: 9px;
+                line-height: 1em;
+                content: '';
+                float: left;
+                width: .5em;
+                height: .5em;
+                border-radius: 50%;
+                background-color: #4caf50;
+            }
+
+            .article-list li {
+                line-height: 24px;
+            }
+
+            .article-list {
+                color: #607D8B;
+                font-family: 'Roboto', serif;
+                font-size: 13px;
+            }
+
+            .article-list a {
+                color: #607D8B;
+            }
+
+            .article-list a:hover {
+                text-decoration: underline;
+            }
+
+            paper-progress {
+                display: block;
+                width: 100%;
+                margin: 20px 0;
+            }
+        </style>
+
+        <div class="navigation">
+            <paper-toolbar class="tall">
+                <div id="explore" class="top title">
+                    <iron-icon icon="icons:donut-small"></iron-icon>
+                    Explore
+                </div>
+                <div class="line"></div>
+                <div id="realTime" class="middle title">{{ runTimeNow() }}</div>
+                <paper-tabs selected="0" id="tabs" class="bottom fit" style="width: 100%">
+                    <paper-tab>ACTIVITIES</paper-tab>
+                    <paper-tab id="articles">ARTICLES</paper-tab>
+                </paper-tabs>
+            </paper-toolbar>
+        </div>
+
+        <iron-pages id="pages" selected="0">
+            <div class="commit">
+                <ul class="landing-card">
+                    <iron-ajax
+                            auto
+                            url="{{url}}"
+                            params='{"since":"2015-10-17T13:10:27Z"}'
+                            handle-as="json"
+                            on-response="handleJSON"
+                            last-response="{{ commits }}">
+                    </iron-ajax>
+
+                    <template is="dom-if" if="{{loading}}">
+                        <paper-progress value="10" indeterminate="true" style="width:100%;"></paper-progress>
+                    </template>
+
+                    <template is="dom-repeat" items="[[commits]]">
+                        <li class="commit-view row-li passed">
+                            <div class="commit-status">
+                                <div class="author">
+                                    <iron-icon icon="icons:done"></iron-icon>
+                                    &nbsp <a
+                                        href="{{ item.committer.html_url }}?utm_source=100dayproject.org"
+                                        target="_blank">{{ item.committer.login }}</a></div>
+                                <div class="desc">{{ item.commit.message }}</div>
+                                <div class="date multi-line">
+                                    <iron-icon icon="icons:alarm"></iron-icon>
+                                    {{ item.commit.committer.date }}
+                                    <div class="line-two">
+                                        <iron-icon icon="icons:swap-horiz"></iron-icon>
+                                        master
+
+                                        <iron-icon icon="icons:arrow-drop-up"></iron-icon>
+                                        Commit: <a target="_blank"
+                                                   href="{{ item.html_url }}?utm_source=100dayproject.org">[[truncateCommit(item.sha)]]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <div class="articles">
+                <paper-material class="article" elevation="0">
+                    <div class="img">
+                        <img src="../images/categories/javascript.png" alt="Javascript">
+                    </div>
+
+                    <div class="article-list">
+                        <ul>
+                            <li><a href="#">Diffie & Hellman win the Nobel prize of computer science, yay!</a></li>
+                            <li><a href="#">Giám sát an ninh mạng</a></li>
+                            <li><a href="#">Đầu tư an toàn thông tin thế nào cho đúng?</a></li>
+                            <li><a href="#">Javascript Crypto Is Useful</a></li>
+
+                        </ul>
+                    </div>
+                </paper-material>
+                <paper-material class="article" elevation="0">
+                    <div class="img">
+                        <img src="../images/categories/nodejs.png" alt="NodeJS">
+                    </div>
+                    <div class="article-list">
+                        <ul>
+                            <li><a href="#">Diffie & Hellman win the Nobel prize of computer science, yay!</a></li>
+                            <li><a href="#">Flickr's API Signature Forgery Vulnerability</a></li>
+                            <li><a href="#">Giám sát an ninh mạng</a></li>
+                            <li><a href="#">Javascript Crypto Is Useful</a></li>
+
+                        </ul>
+                    </div>
+                </paper-material>
+                <paper-material class="article" elevation="0">
+                    <div class="img">
+                        <img src="../images/categories/css.png" alt="CSS">
+                    </div>
+                    <div class="article-list">
+                        <ul>
+                            <li><a href="#">Diffie & Hellman win the Nobel prize of computer science, yay!</a></li>
+                            <li><a href="#">Flickr's API Signature Forgery Vulnerability</a></li>
+                            <li><a href="#">Đầu tư an toàn thông tin thế nào cho đúng?</a></li>
+                            <li><a href="#">Javascript Crypto Is Useful</a></li>
+                        </ul>
+                    </div>
+                </paper-material>
+            </div>
+        </iron-pages>
+
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'card-explore',
+            properties: {
+                owner: {
+                    value: 'vietworm',
+                    notify: true,
+                    readonly: true
+                },
+                repo: {
+                    value: 'AA',
+                    notify: true,
+                    readonly: true
+                },
+                url: {
+                    computed: 'computeUrl(owner, repo)'
+                },
+                timeNow: {
+                    type: String,
+                    value: new Date().getTime(),
+                    notify: true
+                },
+                loading: {
+                    type: Boolean,
+                    value: true
+                }
+            },
+            truncateCommit: function (val) {
+                return val.slice(-7);
+            },
+            computeUrl: function (owner, repo) {
+                return `https://api.github.com/repos/${owner}/${repo}/commits`;
+            },
+            runTimeNow: function () {
+                var self = this;
+                setInterval(function () {
+                    let init = new Date().getTime(),
+                            t = new Date(init),
+                            date = [String('00' + t.getDate()).slice(-2), String('00' + (t.getMonth() + 1)).slice(-2), t.getFullYear()],
+                            time = [String('00' + t.getHours()).slice(-2), String('00' + t.getMinutes()).slice(-2), String('00' + t.getSeconds()).slice(-2)];
+
+                    self.$.realTime.textContent = `${date.join('/')} - ${time.join(':')}`;
+                }, 1000);
+            },
+            handleJSON: function (e) {
+                console.log('312', e.detail.response);
+                this.loading = false;
+            }
+        });
+    </script>
+</dom-module>

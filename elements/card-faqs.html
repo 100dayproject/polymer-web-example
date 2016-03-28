@@ -1,0 +1,324 @@
+<dom-module id="card-faqs">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            paper-tabs {
+                font-family: 'Roboto Slab', serif;
+                font-weight: 600;
+            }
+
+            paper-tabs paper-tab.iron-selected {
+                color: #9575CD;
+                border-bottom: solid #9575CD;
+            }
+
+            paper-menu {
+                background: rgba(0, 0, 0, 0);
+                cursor: pointer;
+                color: #78909C;
+            }
+
+            paper-menu paper-item.iron-selected {
+                border-left: solid #37A0F4;
+            }
+
+            paper-card .header.paper-card {
+                border-bottom: solid 1px #ECEFF1;
+            }
+
+            .h_1dp-intro paper-badge {
+                --paper-badge-margin-left: 20px;
+                --paper-badge-margin-bottom: 0px;
+                --paper-badge-background: #9575CD;
+                --paper-badge-width: 22px;
+                --paper-badge-height: 22px;
+                cursor: pointer;
+            }
+
+            paper-button.custom {
+                --paper-button-ink-color: #9575CD;
+                /* These could also be individually defined for each of the
+                  specific css classes, but we'll just do it once as an example */
+                --paper-button-flat-keyboard-focus: {
+                    background-color: #9575CD;
+                    color: white !important;
+                };
+                --paper-button-raised-keyboard-focus: {
+                    background-color: #9575CD !important;
+                    color: white !important;
+                };
+                font-size: 15px;
+            }
+
+            paper-button.indigo {
+                background-color: #2196F3;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: #2196F3 !important;
+                    color: white !important;
+                };
+            }
+
+            paper-button.indigo a {
+                color: white;
+                text-decoration: none;
+            }
+
+            .srv {
+                padding-bottom: 10px;
+            }
+
+            .services {
+                color: #607D8B;
+                font-family: 'Roboto', serif;
+                font-size: 13px;
+            }
+
+            .services a {
+                color: #607D8B;
+            }
+
+            .services a:hover {
+                text-decoration: underline;
+            }
+
+            .services ::selection {
+                color: red;
+                background: rgba(255, 255, 0, 0.9);
+            }
+
+            .services .welcome,
+            .services .actions,
+            .services .knowledge {
+                background: #fff;
+            }
+
+            .services .welcome {
+                min-height: 50px;
+            }
+
+            .services .we-body {
+                padding: 20px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                border: 1px solid #d8d8d8;
+            }
+
+            .services .ask, .services .write {
+                background: #fff;
+                border: solid 1px #d8d8d8;
+                border-right: none;
+            }
+
+            .services .share {
+                background: #fff;
+                border: solid 1px #d8d8d8;
+            }
+
+            .services .ask .fab,
+            .services .write .fab,
+            .services .share .fab {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                display: inline-flex;
+            }
+
+            .services .act-content {
+                position: absolute;
+                display: inline-flex;
+                padding-top: 11px;
+                padding-left: 15px;
+            }
+
+            .services .actions .title {
+                position: absolute;
+                font-size: 16px;
+                font-weight: 700;
+                font-style: normal;
+                color: #607D8B;
+            }
+
+            .services .actions .desc {
+                padding-top: 20px;
+                color: #607D8B;
+            }
+
+            .services .knowledge h4 {
+                font-size: 18px;
+                padding: 0;
+                margin: 0;
+            }
+
+            .services .knowledge .title {
+                font-size: 15px;
+            }
+
+            .services .knowledge .row {
+                padding-top: 15px;
+            }
+
+            paper-material paper-fab::shadow {
+                @apply(--shadow-none);
+            }
+
+            paper-fab.blue {
+                --paper-fab-background: #1E88E5;
+                --paper-fab-keyboard-focus-background: #29B6F6;
+            }
+
+            paper-fab.teal {
+                --paper-fab-background: #00897B;
+                --paper-fab-keyboard-focus-background: #26A69A;
+            }
+
+            paper-fab.green {
+                --paper-fab-background: #43A047;
+                --paper-fab-keyboard-focus-background: #66BB6A;
+            }
+
+            paper-material paper-fab {
+                --iron-icon-width: 18px;
+            }
+
+            paper-fab {
+                --iron-icon-width: 18px;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            li:before {
+                content: "\2605";
+                margin-left: -15px;
+                margin-right: 6px;
+            }
+
+            li {
+                line-height: 20px;
+            }
+
+            #dialog-email {
+                color: #546E7A;
+                width: 600px;
+            }
+
+            #dialog-email .to {
+                text-align: right;
+            }
+
+            #form-contact {
+                margin-top: 0;
+            }
+
+            #submit {
+                float: right;
+                margin-top: 5px;
+                margin-bottom: 15px;
+            }
+        </style>
+        <div class="srv col-md-8 col-xs-12">
+            <paper-material class="welcome" elevation="0">
+                <div class="we-body">
+                    <div class="we-content">Welcome to the <a
+                                href="http://100dayproject.org">100dayProject</a> knowledge base and
+                        forum
+                    </div>
+                </div>
+            </paper-material>
+        </div>
+        <div class="srv col-md-8">
+            <paper-material class="actions" elevation="0">
+                <a href="#">
+                    <div class="ask col-md-4 col-xs-4">
+                        <div class="fab">
+                            <paper-fab class="blue" mini icon="icons:create"
+                                       title="ask"></paper-fab>
+                        </div>
+                        <div class="hidden-xs act-content"><span class="title">Ask</span><br><span
+                                    class="desc">Question</span></div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="write col-md-4 col-xs-4">
+                        <div class="fab">
+                            <paper-fab class="teal" mini icon="icons:class"
+                                       title="write"></paper-fab>
+                        </div>
+                        <div class="hidden-xs act-content"><span class="title">Write</span><br><span
+                                    class="desc">Story</span></div>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="share col-md-4 col-xs-4">
+                        <div class="fab">
+                            <paper-fab class="green" mini icon="icons:link"
+                                       title="share"></paper-fab>
+                        </div>
+                        <div class="hidden-xs act-content"><span class="title">Share</span><br><span
+                                    class="desc">Link</span></div>
+                    </div>
+                </a>
+            </paper-material>
+        </div>
+        <div class="srv col-md-8 col-xs-12">
+            <paper-material class="knowledge" elevation="0">
+                <div class="we-body">
+                    <h4>Knowledge base</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="title">FAQs</div>
+                            <ul>
+                                <li><a href="#">What Browser engine does Kiosk Browser use?</a></li>
+                                <li><a href="#">How do I exit?</a></li>
+                                <li><a href="#">Can I hide the system bar?</a></li>
+                                <li><a href="#">How can I get Kiosk Browser to start at boot?</a>
+                                </li>
+                                <li><a href="#">How do I set the Kiosk URL to a html file on the
+                                        device?</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="title">Getting Started</div>
+                            <ul>
+                                <li><a href="#">Installing</a></li>
+                                <li><a href="#">The Basics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="title">License</div>
+                            <ul>
+                                <li><a href="#">How can I buy Kiosk Browser Pro</a></li>
+                                <li><a href="#">How do I enter my licence key?</a></li>
+                                <li><a href="#">How does the licensing system work?</a></li>
+                                <li><a href="#">Can I change the licence email address?</a></li>
+                                <li><a href="#">How to acquire a licence key for purchases made
+                                        before
+                                        20/10/2014</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="title">Features</div>
+                            <ul>
+                                <li><a href="#">Printing with Google Cloud Print</a></li>
+                                <li><a href="#">Barcode Scanning</a></li>
+                                <li><a href="#">Themes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </paper-material>
+        </div>
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'card-faqs'
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,127 @@
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="node-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            #node-list {
+                background: #fff;
+                margin: 0;
+                padding: 0;
+            }
+
+            .node img {
+                width: 120px;
+            }
+
+            .node-header {
+                background: #00bcd4;
+                min-height: 50px;
+            }
+
+            .text-header {
+                margin: 0;
+                padding: 15px;
+                color: #fff;
+                line-height: normal;
+                font-size: 16px;
+                font-weight: 600;
+                font-family: 'Exo', sans-serif;
+            }
+
+            .node {
+                border: 1px solid #d8d8d8;
+                padding: 0;
+            }
+
+            .node-name {
+                display: inline-block;
+                padding-left: 11px;
+            }
+
+            .node {
+                margin-top: 30px;
+                margin-left: 48px;
+            }
+
+            .node .name {
+                font-size: 16px;
+                font-weight: 700;
+                color: #607D8B;
+                display: block;
+            }
+
+            .node .posts {
+            }
+
+            .node-body {
+                display: inline-block;
+            }
+
+            .node-footer {
+                padding-top: 35px;
+            }
+        </style>
+        <div id="node-list" class="col-md-9 col-xs-12">
+            <div class="node-header">
+                <p class="text-header">Popular Technologies on 100dayproject</p>
+            </div>
+            <div class="node-body">
+                <div class="node col-md-5">
+                    <a href="#">
+                        <img src="../images/categories/javascript.png"
+                             alt="Javascript" class="style-scope node-list">
+                        <p class="node-name style-scope node-list">
+                            <span class="name">Javascript</span>
+                        </p>
+                    </a>
+                </div>
+                <div class="node col-md-5">
+                    <a href="#">
+                        <img src="../images/categories/nodejs.png"
+                             alt="Javascript" class="style-scope node-list">
+                        <p class="node-name style-scope node-list">NodeJS</p>
+                    </a>
+                </div>
+                <div class="node col-md-5">
+                    <a href="#">
+                        <img src="../images/categories/mongodb.png"
+                             alt="Javascript" class="style-scope node-list">
+                        <p class="node-name style-scope node-list">Mongodb</p>
+                    </a>
+                </div>
+                <div class="node col-md-5">
+                    <a href="#">
+                        <img src="../images/categories/webSphere.jpg"
+                             alt="Javascript" class="style-scope node-list">
+                        <p class="node-name style-scope node-list">WebSphere</p>
+                    </a>
+                </div>
+            </div>
+            <div class="node-footer"></div>
+        </div>
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'node-list'
+        });
+    </script>
+</dom-module>

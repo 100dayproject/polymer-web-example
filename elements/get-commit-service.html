@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="get-commit-service">
+    <template>
+        <style></style>
+        <iron-ajax
+                auto
+                url="https://api.github.com/repos/vietworm/AA/commits"
+                params='{"since":"2015-10-17T13:10:27Z"}'
+                handle-as="json"
+                on-response="handleJSON"
+                loading="{{ loading }}"
+                last-response="{{ commits }}">
+        </iron-ajax>
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'get-commit-service',
+            properties: {
+                loading: {
+                    type: Boolean,
+                    readOnly: true,
+                    notify: true,
+                    value: false
+                }
+            },
+            handleJSON: function () {
+                console.log('handle JSON');
+                console.log(this.fire);
+            }
+        });
+    </script>
+</dom-module>

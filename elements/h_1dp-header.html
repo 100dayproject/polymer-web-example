@@ -1,0 +1,53 @@
+<dom-module id="h_1dp-header">
+    <template>
+        <style>
+            :host {
+                display: block;
+
+            }
+
+            .h_1dp-header {
+                background: #673ab7;
+            }
+        </style>
+        <header class="h_1dp-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <img onclick="toast.open()" class="header-logo" src="../images/logo-v1.1.png"
+                         alt="100dayproject.org">
+                    <paper-ripple></paper-ripple>
+                </div>
+                <div class="row header-title">
+                    <h1>100dayProject Lab Ignore</h1>
+                </div>
+
+                <div class="row header-subtitle">
+                    <h2>Life time with code and technical labs</h2>
+                </div>
+
+                <div class="row">
+                    <form class="search">
+                        <input type="text" name="q" autocomplete="off" class="search-field" id="search-field"
+                               placeholder="Search...">
+                    </form>
+                </div>
+            </div>
+        </header>
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'h_1dp-header',
+            properties: {
+                timeNow: {
+                    type: String,
+                    value: new Date().getTime(),
+                    notify: true
+                }
+            },
+            handleJSON: function () {
+                console.log('handle JSON');
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="../src/css/asciinema-player.css">
+<script src="../src/js/asciinema-player.js"></script>
+<!--
+Player video using asciinema, loader json file to resource.
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="h_1dp-player">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <div id="player-container"></div>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'h_1dp-player'
+        });
+        asciinema_player.core.CreatePlayer('player-container', '../src/dev/asciicast.json');
+    </script>
+</dom-module>

@@ -1,0 +1,69 @@
+<dom-module id="list-reviews">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      blockquote {
+        margin: 20px 0;
+        padding-left: 1.5rem;
+        border-left: 5px solid #689f38;
+      }
+
+      .text-primaryColor {
+        color: #689f38;
+        font-size: 18px;
+      }
+
+      .divider {
+        height: 1px;
+        overflow: hidden;
+        background-color: #e0e0e0;
+      }
+    </style>
+  <div class="container">
+    <div class="col-md-offset-1 col-md-10">
+      <h5 class="text-primaryColor">Reviews</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-3">
+            <img width="65" height="65" src="../images/avatar/material_man1.png" style="border-radius: 50%">
+          </div>
+          <div class="col-md-9">
+            <blockquote>
+              <p class="grey-text text-darken-3">
+                <span style="font-weight:500;">When we first</span> started working with this app, it had a pretty steep learning curve. These guys have been working diligently on building their documentation, listening to their customers and adding fixes/additional features; and it has paid off! This app is worth every cent if you are looking to use it commercially like we have.
+
+              </p>
+              <p style="font-weight:300;">Gunther Vinson, TowMate LLC</p>
+              <div class="divider"></div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-3">
+            <img width="65" height="65" src="../images/avatar/material_man3.png" style="border-radius: 50%">
+          </div>
+          <div class="col-md-9">
+            <blockquote>
+              <p class="grey-text text-darken-3">
+                <span style="font-weight:500;">Great product - incredible support</span>. We use this product in about 40 locations at our company and it works perfectly all-day, every-day.
+              </p>
+              <p style="font-weight:300;">David Higginson</p>
+              <div class="divider"></div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </template>
+  <script>
+    "use strict";
+    Polymer({
+      is: 'list-reviews'
+    });
+  </script>
+</dom-module>

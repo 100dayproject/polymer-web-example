@@ -1,0 +1,539 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="../src/css/_bootstrap.min.css">
+
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+<!-- Optional theme -->
+<!-- <link rel="stylesheet" href="./bootstrap-3.3.6-dist/css/bootstrap-theme.min.css"> -->
+
+<!-- Latest compiled and minified JavaScript -->
+<!--<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Exo:400,800italic,800,700italic,700,600italic,600'
+      rel='stylesheet' type='text/css'>
+
+<!--<link rel="stylesheet" href="./bower_components/tether/dist/css/tether.min.css">-->
+<!--<link rel="stylesheet" href="./bower_components/tether-shepherd/dist/css/shepherd-theme-arrows.css">-->
+
+<!-- Custom style -->
+<link rel="stylesheet" href="../src/css/animate.css">
+<link rel="stylesheet" href="../src/css/main.css">
+<!-- End custom style -->
+
+<script src="../src/js/main.js"></script>
+
+<!-- Polymer element -->
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/social-media-icons/social-media-icons.html">
+<!-- End polymer element -->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- Polymer site -->
+<link rel="import" href="./card-setting.html">
+<link rel="import" href="./card-explore.html">
+<link rel="import" href="./card-event.html">
+<link rel="import" href="./card-project.html">
+<link rel="import" href="./node-list.html">
+<link rel="import" href="./list-reviews.html">
+<link rel="import" href="./h-gear.html">
+
+<dom-module id="project-app">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            paper-tabs {
+                font-family: 'Roboto Slab', serif;
+                font-weight: 600;
+            }
+
+            paper-tabs paper-tab.iron-selected {
+                color: #9575CD;
+                border-bottom: solid #9575CD;
+            }
+
+            paper-menu {
+                background: rgba(0, 0, 0, 0);
+                cursor: pointer;
+                color: #78909C;
+            }
+
+            paper-menu paper-item.iron-selected {
+                border-left: solid #37A0F4;
+            }
+
+            paper-card .header.paper-card {
+                border-bottom: solid 1px #ECEFF1;
+            }
+
+            .h_1dp-intro paper-badge {
+                --paper-badge-margin-left: 20px;
+                --paper-badge-margin-bottom: 0px;
+                --paper-badge-background: #9575CD;
+                --paper-badge-width: 22px;
+                --paper-badge-height: 22px;
+                cursor: pointer;
+            }
+
+            paper-button.custom {
+                --paper-button-ink-color: #9575CD;
+                /* These could also be individually defined for each of the
+                  specific css classes, but we'll just do it once as an example */
+                --paper-button-flat-keyboard-focus: {
+                    background-color: #9575CD;
+                    color: white !important;
+                };
+                --paper-button-raised-keyboard-focus: {
+                    background-color: #9575CD !important;
+                    color: white !important;
+                };
+                font-size: 15px;
+            }
+
+            paper-button.indigo {
+                background-color: #2196F3;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: #2196F3 !important;
+                    color: white !important;
+                };
+            }
+
+            paper-button.indigo a {
+                color: white;
+                text-decoration: none;
+            }
+
+            .srv {
+                padding-bottom: 10px;
+            }
+
+            .services {
+                color: #607D8B;
+                font-family: 'Roboto', serif;
+                font-size: 13px;
+            }
+
+            .services a {
+                color: #607D8B;
+            }
+
+            .services a:hover {
+                text-decoration: underline;
+            }
+
+            .services ::selection {
+                color: red;
+                background: rgba(255, 255, 0, 0.9);
+            }
+
+            .services .welcome,
+            .services .actions,
+            .services .knowledge {
+                background: #fff;
+            }
+
+            .services .welcome {
+                min-height: 50px;
+            }
+
+            .services .we-body {
+                padding: 20px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                border: 1px solid #d8d8d8;
+            }
+
+            .services .ask, .services .write {
+                background: #fff;
+                border: solid 1px #d8d8d8;
+                border-right: none;
+            }
+
+            .services .share {
+                background: #fff;
+                border: solid 1px #d8d8d8;
+            }
+
+            .services .ask .fab,
+            .services .write .fab,
+            .services .share .fab {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                display: inline-flex;
+            }
+
+            .services .act-content {
+                position: absolute;
+                display: inline-flex;
+                padding-top: 11px;
+                padding-left: 15px;
+            }
+
+            .services .actions .title {
+                position: absolute;
+                font-size: 16px;
+                font-weight: 700;
+                font-style: normal;
+                color: #607D8B;
+            }
+
+            .services .actions .desc {
+                padding-top: 20px;
+                color: #607D8B;
+            }
+
+            .services .knowledge h4 {
+                font-size: 18px;
+                padding: 0;
+                margin: 0;
+            }
+
+            .services .knowledge .title {
+                font-size: 15px;
+            }
+
+            .services .knowledge .row {
+                padding-top: 15px;
+            }
+
+            paper-material paper-fab::shadow {
+                @apply(--shadow-none);
+            }
+
+            paper-fab.blue {
+                --paper-fab-background: #1E88E5;
+                --paper-fab-keyboard-focus-background: #29B6F6;
+            }
+
+            paper-fab.teal {
+                --paper-fab-background: #00897B;
+                --paper-fab-keyboard-focus-background: #26A69A;
+            }
+
+            paper-fab.green {
+                --paper-fab-background: #43A047;
+                --paper-fab-keyboard-focus-background: #66BB6A;
+            }
+
+            paper-material paper-fab {
+                --iron-icon-width: 18px;
+            }
+
+            paper-fab {
+                --iron-icon-width: 18px;
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            li:before {
+                content: "\2605";
+                margin-left: -15px;
+                margin-right: 6px;
+            }
+
+            li {
+                line-height: 20px;
+            }
+
+            #dialog-email {
+                color: #546E7A;
+                width: 600px;
+            }
+
+            #dialog-email .to {
+                text-align: right;
+            }
+
+            #form-contact {
+                margin-top: 0;
+            }
+
+            #submit {
+                float: right;
+                margin-top: 5px;
+                margin-bottom: 15px;
+            }
+        </style>
+
+        <div class="h_1dp-container">
+            <card-setting></card-setting>
+            <header class="h_1dp-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <img onclick="toast.open()" class="header-logo" src="../images/logo-v1.1.png"
+                             alt="100dayproject.org">
+                        <paper-ripple></paper-ripple>
+                    </div>
+                    <div class="row header-title">
+                        <h1>100dayProject Lab Ignore</h1>
+                    </div>
+
+                    <div class="row header-subtitle">
+                        <h2>Lifetime of the research reactor</h2>
+                    </div>
+
+                    <div class="row">
+                        <form class="search">
+                            <input is="iron-input" bind-value="{{ actions }}" name="q" autocomplete="off"
+                                   class="search-field" id="search-field"
+                                   placeholder="Search...">
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <section class="h_1dp-intro">
+                <div class="container-fluid">
+                    <div class="col-md-offset-1 col-md-2 col-xs-6">
+                        <img src="../images/logo-v1.png" alt="100dayproject.org">
+                    </div>
+                    <div class="col-md-5 col-xs-6">
+                        <div class="row project-name">
+                            <a id="project-name" href="https://github.com/100dayproject/life-parser?utm_source=100dayproject.org"
+                               target="_blank">
+                                <iron-icon icon="icons:http"></iron-icon>
+                                Life {Parser}</a>
+                            <paper-ripple></paper-ripple>
+                        </div>
+                        <paper-badge id="badge-version" for="project-name" label="1.0"></paper-badge>
+                        <div class="row project-desc">
+                            <span>It product buit-in javascript platform, support for develop coding NodeJS.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <paper-tabs selected="1" class="bottom">
+                            <paper-tab id="demo">DEMO</paper-tab>
+                            <paper-tab>POPULAR</paper-tab>
+                            <paper-tab>DURATION</paper-tab>
+                        </paper-tabs>
+                    </div>
+                </div>
+            </section>
+
+            <main class="h_1dp-main container">
+                <div class="row">
+                    <div class="col-md-3 menu">
+                        <paper-menu selected="0" id="menus">
+                            <paper-item>
+                                <iron-icon icon="icons:dashboard"></iron-icon>
+                                <paper-ripple></paper-ripple>
+                                Explore
+                            </paper-item>
+                            <paper-item>
+                                <iron-icon icon="icons:unfold-more"></iron-icon>
+                                <paper-ripple></paper-ripple>
+                                Nodes
+                            </paper-item>
+                            <paper-item>
+                                <iron-icon icon="icons:bookmark-border"></iron-icon>
+                                <paper-ripple></paper-ripple>
+                                Collections
+                            </paper-item>
+                            <paper-item>
+                                <iron-icon icon="icons:play-for-work"></iron-icon>
+                                <paper-ripple></paper-ripple>
+                                Services
+                            </paper-item>
+                        </paper-menu>
+                    </div>
+
+                    <iron-pages id="menu" selected="0">
+                        <div class="explore">
+                            <div class="col-md-6 explore">
+                                <card-explore></card-explore>
+                            </div>
+
+                            <div class="col-md-3 menu">
+                                <card-event></card-event>
+                            </div>
+                        </div>
+                        <div class="nodes">
+                            <node-list></node-list>
+                        </div>
+                        <div class="collections">
+                            <card-project></card-project>
+                            <card-project></card-project>
+                            <card-project></card-project>
+                        </div>
+                        <div class="services">
+                            <div class="srv col-md-8 col-xs-12">
+                                <paper-material class="welcome" elevation="0">
+                                    <div class="we-body">
+                                        <div class="we-content">Welcome to the <a
+                                                    href="http://100dayproject.org">100dayProject</a> knowledge base and
+                                            forum
+                                        </div>
+                                    </div>
+                                </paper-material>
+                            </div>
+                            <div class="srv col-md-8">
+                                <paper-material class="actions" elevation="0">
+                                    <a href="#">
+                                        <div class="ask col-md-4 col-xs-4">
+                                            <div class="fab">
+                                                <paper-fab class="blue" mini icon="icons:create"
+                                                           title="ask"></paper-fab>
+                                            </div>
+                                            <div class="hidden-xs act-content"><span class="title">Ask</span><br><span
+                                                        class="desc">Question</span></div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="write col-md-4 col-xs-4">
+                                            <div class="fab">
+                                                <paper-fab class="teal" mini icon="icons:class"
+                                                           title="write"></paper-fab>
+                                            </div>
+                                            <div class="hidden-xs act-content"><span class="title">Write</span><br><span
+                                                        class="desc">Story</span></div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class="share col-md-4 col-xs-4">
+                                            <div class="fab">
+                                                <paper-fab class="green" mini icon="icons:link"
+                                                           title="share"></paper-fab>
+                                            </div>
+                                            <div class="hidden-xs act-content"><span class="title">Share</span><br><span
+                                                        class="desc">Link</span></div>
+                                        </div>
+                                    </a>
+                                </paper-material>
+                            </div>
+                            <div class="srv col-md-8 col-xs-12">
+                                <paper-material class="knowledge" elevation="0">
+                                    <div class="we-body">
+                                        <h4>Knowledge base</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="title">FAQs</div>
+                                                <ul>
+                                                    <li><a href="#">What Browser engine does Kiosk Browser use?</a></li>
+                                                    <li><a href="#">How do I exit?</a></li>
+                                                    <li><a href="#">Can I hide the system bar?</a></li>
+                                                    <li><a href="#">How can I get Kiosk Browser to start at boot?</a>
+                                                    </li>
+                                                    <li><a href="#">How do I set the Kiosk URL to a html file on the
+                                                            device?</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="title">Getting Started</div>
+                                                <ul>
+                                                    <li><a href="#">Installing</a></li>
+                                                    <li><a href="#">The Basics</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="title">License</div>
+                                                <ul>
+                                                    <li><a href="#">How can I buy Kiosk Browser Pro</a></li>
+                                                    <li><a href="#">How do I enter my licence key?</a></li>
+                                                    <li><a href="#">How does the licensing system work?</a></li>
+                                                    <li><a href="#">Can I change the licence email address?</a></li>
+                                                    <li><a href="#">How to acquire a licence key for purchases made
+                                                            before
+                                                            20/10/2014</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="title">Features</div>
+                                                <ul>
+                                                    <li><a href="#">Printing with Google Cloud Print</a></li>
+                                                    <li><a href="#">Barcode Scanning</a></li>
+                                                    <li><a href="#">Themes</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </paper-material>
+                            </div>
+                        </div>
+                    </iron-pages>
+                </div>
+            </main>
+
+            <section class="h_1dp-how-do container-fluid">
+                <div class="row col-md-12">
+                    <span>Want to make this project awesome? Check out our repo.</span>
+                </div>
+                <div class="row col-md-12">
+                    <paper-button raised class="custom indigo">
+                        <a href="https://github.com/100dayproject/life-parser?utm_source=100dayproject"
+                           target="_blank">GITHUB</a>
+                    </paper-button>
+                </div>
+            </section>
+
+            <section onclick="clickDialogHandler(event)">
+                <div class="fab-email" data-dialog="dialog-email">
+                    <paper-fab mini label="message" icon="mail" title="mail"></paper-fab>
+                </div>
+                <paper-dialog id="dialog-email" entry-animation="scale-up-animation"
+                              exit-animation="scale-down-animation" with-backdrop>
+                    <div class="from">From: [[bindFrom]]</div>
+                    <div class="to">To: hai@100dayproject.org</div>
+                    <form is="iron-form" id="form-contact" method="post" action="/form/handler">
+                        <paper-input label="name"></paper-input>
+                        <paper-input is="iron-input" bind-value="{{ bindFrom }}" label="email" id="inputWithButton">
+                            <iron-icon icon="mail" prefix></iron-icon>
+                            <paper-icon-button suffix onclick="clearInput()" icon="clear" alt="clear" title="clear">
+                            </paper-icon-button>
+                        </paper-input>
+                        <paper-textarea label="content"></paper-textarea>
+                        <paper-fab id="submit" class="blue" mini icon="icons:send"></paper-fab>
+                    </form>
+                </paper-dialog>
+            </section>
+
+            <paper-toast id="toast" duration="0" text="Mmm, not touch me.[[actions]]">
+                <paper-button onclick="toast.toggle()" class="yellow-button">Go away!</paper-button>
+            </paper-toast>
+
+            <footer class="h_1dp-footer container" style="position: relative">
+                <img src="../images/logo-v1.1.png" alt="100dayproject.org" height="50px">
+                <span>100day{project}</span>
+                <!--<h-gear></h-gear>-->
+            </footer>
+        </div>
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'project-app',
+            listeners: {
+                'demo.tap': 'regularTap'
+            },
+            regularTap: function(e) {
+                console.log(e)
+            }
+        });
+    </script>
+</dom-module>

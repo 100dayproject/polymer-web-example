@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="api-services">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <iron-ajax
+                auto
+                url="https://api.github.com/repos/vietworm/AA/commits"
+                params='{"since":"2015-10-17T13:10:27Z"}'
+                handle-as="json"
+                on-response="handleJSON"
+                last-response="{{ commits }}">
+        </iron-ajax>
+
+    </template>
+    <script>
+        "use strict";
+        Polymer({
+            is: 'api-services'
+        });
+    </script>
+</dom-module>
