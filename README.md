@@ -8,13 +8,15 @@ You can find an demo at: [http://polymer.100dayproject.org/](http://polymer.100d
 
 # Installation/Configuration
 
-To install [Bower](http://bower.io/) through [NPM](https://www.npmjs.com/) you need to execute the following commands:
+To install [Bower](http://bower.io/) through [NPM](https://www.npmjs.com/) & install bower dependencies you need to execute the following commands:
 
 ```
+npm install bower -g
 git clone https://github.com/100dayproject/polymer-web-example.git
 cd polymer-web-example
 bower install
 ```
+Mmm. For routing to work, you must use a basic web server (I accomplish this by running `python -m SimpleHTTPServer 1337` from the project folder and then visiting `127.0.0.1:1337` in my browser.)
 
 # Here We Go
 
